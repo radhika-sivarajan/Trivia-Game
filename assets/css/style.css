@@ -1,0 +1,31 @@
+body{
+  background-image: url("../images/background1.jpg");
+}
+
+h2 {
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+    margin: -25px -50px 25px -50px;
+    background: #299dbf;
+}
+.quiz-form {	
+	background-color: #a7eaf1;
+	padding: 25px 50px;
+	line-height: 25px;
+	font-size: 15px;
+}
+.question {
+	font-weight: 500;
+}
+
+#submit, #start {
+    background-color: #6eb615;
+    color: white;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+}
+#submit,.quiz-form, img { margin-top: 20px; }
