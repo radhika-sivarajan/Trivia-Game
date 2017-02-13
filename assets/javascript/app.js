@@ -1,7 +1,7 @@
 var correctCount = 0;
 var inCorrectCount = 0;
 var unAnsweredCount = 0;
-var sec = 50;
+var sec = 40;
 var timer;
 
 //Question array
@@ -86,7 +86,7 @@ function displayQuestions(){
 	timer = setInterval(displayTime, 1000);
 
 	//If the time is over
-	setTimeout(timeOut, 1000 * 50);
+	setTimeout(timeOut, 1000 * parseInt(sec));
 
 	var quiz = "";
 
@@ -105,7 +105,7 @@ function displayQuestions(){
 	//Append all question and its choices in the form and display it on screen
 	$(".quiz-form").append(quiz);
 	$('.form').show();
-	$('.results').hide();	
+	$('.map-image').hide();	
 	$('#start').hide();
 }
 
@@ -134,9 +134,10 @@ function checkResult(){
 //Display result
 function displayResult(correct, incorrect, unanswered){
 	var totalQuiz = quizList.length;
-	var displayMessage = "Your score out of " + totalQuiz + "<br> Correct answers : " + correct + "<br> Incorrect answers : " + incorrect + "<br> Unanswered : " + unanswered;
+	var displayMessage = "Your score out of " + totalQuiz + "<hr>Correct answers : " + correct + "<br> Incorrect answers : " + incorrect + "<br> Unanswered : " + unanswered;
 	$(".score").prepend(displayMessage);
 	$('.results').show();
+	$('.map-image').show();	
 	$('.form').hide();
 }
 
