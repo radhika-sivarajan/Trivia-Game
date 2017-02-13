@@ -68,22 +68,25 @@ var quizList = [
 	}
 ];
 
-//Display time left on the screen
+//Display the timer
 function displayTime(){
 	$(".time-left").html("Time left<br>" + --sec + "<br>seconds");
 }
 
-//Time out
+//If Time is up check the result
 function timeOut(){
 	alert("Time's up");
-	checkAnswer();
+	checkResult();
 }
 
-//Display all questions
+//Display all questions and set timer
 function displayQuestions(){
 
 	//Start timer.
 	timer = setInterval(displayTime, 1000);
+
+	//If the time is over
+	setTimeout(timeOut, 1000 * 50);
 
 	var quiz = "";
 
@@ -91,7 +94,7 @@ function displayQuestions(){
 
 		var multipleChoice = "";
 
-		//Get mutiple choice for each question, set it's values according to choices and set same name for each question to group them together.
+		//Get mutiple choice for each question, set it's values according to the choices and set same name for each question to group them together.
 		for(var key in quizList[i].choices)
 			multipleChoice += "<br><input name=" + quizList[i].name + " type='radio' value=" + quizList[i].choices[key] + ">&emsp;" + quizList[i].choices[key];  
 
@@ -99,21 +102,21 @@ function displayQuestions(){
 		quiz += "<span class='question'>" + quizList[i].question + "</span>" + multipleChoice + "<hr>";
 	}
 
-	//Append all question and its choices in the form and show it on screen
+	//Append all question and its choices in the form and display it on screen
 	$(".quiz-form").append(quiz);
 	$('.form').show();
 	$('.results').hide();	
 	$('#start').hide();
 }
 
-//Check for the number of correct answers
-function checkAnswer(){
+//Check the result and update couters
+function checkResult(){
 	var val = "";
 	var ans = "";
 
 	for(var i = 0; i < quizList.length; i++){
 
-		//Get the value of checked button and compare it with answer of the question. Update the counter if a match found.
+		//Get the value of checked button and compare it with answer of the question. Update the counters accordingly.
 		val = $("input[name='" + quizList[i].name + "']:checked").attr("value");
 		ans = quizList[i].answer;
 
@@ -131,19 +134,15 @@ function checkAnswer(){
 //Display result
 function displayResult(correct, incorrect, unanswered){
 	var totalQuiz = quizList.length;
-	var displayMessage = "Your score is " + correct + " out of " + totalQuiz + "<br> Incorrect answers : " + incorrect + "<br> Unanswered : " + unanswered;
+	var displayMessage = "Your score out of " + totalQuiz + "<br> Correct answers : " + correct + "<br> Incorrect answers : " + incorrect + "<br> Unanswered : " + unanswered;
 	$(".score").prepend(displayMessage);
 	$('.results').show();
 	$('.form').hide();
 }
 
 $(document).ready(function() {
-	$('.form').hide();
 
 	//When click on start button
 	$("#start").click(displayQuestions);
-
-	//If the time is over
-	setTimeout(timeOut, 1000 * 51);
 
 });

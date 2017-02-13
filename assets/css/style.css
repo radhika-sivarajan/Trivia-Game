@@ -26,6 +26,10 @@ h2 {
 	font-family: Impact, Charcoal, sans-serif;
 }
 
+.form {
+	display: none;
+}
+
 .quiz-form {	
 	background-color: #a7eaf1;
 	padding: 25px 50px;
@@ -38,11 +42,11 @@ h2 {
 
 .score {
 	font-weight: 500;
-	font-size: 25px;
-	
+	font-size: 25px;	
 	font-family: Impact, Charcoal, sans-serif;
 }
-#start, #restart {
+
+#start {
     background-color: #6eb615;
     color: white;
     display: block;
@@ -50,15 +54,13 @@ h2 {
     line-height: 40px;
 }
 
-#restart {
-	display: none;
-}
 
 #start:hover {
 	background-color: #299dbf;
 	box-shadow:0px 0px 5px #6eb615;
 }
 
-.quiz-form, img { margin-top: 20px; }
-
-.quiz-form {margin-bottom: 20px;}
+.quiz-form, img { 
+	margin-top: 20px; 
+	margin-bottom: 20px;
+}
