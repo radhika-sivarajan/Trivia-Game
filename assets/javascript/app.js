@@ -1,4 +1,10 @@
-var quiz="";
+var correctCount = 0;
+var inCorrectCount = 0;
+var unAnsweredCount = 0;
+var sec = 50;
+var timer;
+
+//Question array
 var quizList = [
 	{	
 		name: "question1",
@@ -62,48 +68,82 @@ var quizList = [
 	}
 ];
 
+//Display time left on the screen
+function displayTime(){
+	$(".time-left").html("Time left<br>" + --sec + "<br>seconds");
+}
+
+//Time out
+function timeOut(){
+	alert("Time's up");
+	checkAnswer();
+}
+
+//Display all questions
 function displayQuestions(){
+
+	//Start timer.
+	timer = setInterval(displayTime, 1000);
+
+	var quiz = "";
 
 	for(var i=0; i<quizList.length; i++){
 
-		var multipleChoice ="";
+		var multipleChoice = "";
 
+		//Get mutiple choice for each question, set it's values according to choices and set same name for each question to group them together.
 		for(var key in quizList[i].choices)
-			multipleChoice += "<br><input name="+quizList[i].name+" type='radio' value="+quizList[i].choices[key]+">&emsp;"+quizList[i].choices[key];   
+			multipleChoice += "<br><input name=" + quizList[i].name + " type='radio' value=" + quizList[i].choices[key] + ">&emsp;" + quizList[i].choices[key];  
 
-		quiz += "<span class='question'>"+quizList[i].question+"</span>"+multipleChoice+"<hr>";
+		//Append all questions along with its choices
+		quiz += "<span class='question'>" + quizList[i].question + "</span>" + multipleChoice + "<hr>";
 	}
+
+	//Append all question and its choices in the form and show it on screen
 	$(".quiz-form").append(quiz);
 	$('.form').show();
-	$('.map-image').hide();	
+	$('.results').hide();	
 	$('#start').hide();
 }
 
+//Check for the number of correct answers
 function checkAnswer(){
-	var correctCount = 0;
 	var val = "";
 	var ans = "";
-	for(var i=0; i<quizList.length; i++){
 
-		if($("input[name='"+quizList[i].name+"']:checked")){
-			val = $("input[name='"+quizList[i].name+"']:checked").attr("value");
-			ans = $("input[name='"+quizList[i].name+"']:checked").attr(quizList[i].answer);
-			console.log($("input[name='"+quizList[i].name+"']:checked").val());
-			if(val === ans)
-				correctCount++;
-		}else{
-			val = $("input[name='"+quizList[i].name+"']:checked").attr("value","noanswer");
-			console.log("uncheck"+val);
-		}
+	for(var i = 0; i < quizList.length; i++){
+
+		//Get the value of checked button and compare it with answer of the question. Update the counter if a match found.
+		val = $("input[name='" + quizList[i].name + "']:checked").attr("value");
+		ans = quizList[i].answer;
+
+		if(val === ans)
+			correctCount++;
+		else if (val === undefined)
+			unAnsweredCount++;
+		else
+			inCorrectCount++;
 	}
-	console.log(correctCount);
+
+	displayResult(correctCount,inCorrectCount,unAnsweredCount);
+}
+
+//Display result
+function displayResult(correct, incorrect, unanswered){
+	var totalQuiz = quizList.length;
+	var displayMessage = "Your score is " + correct + " out of " + totalQuiz + "<br> Incorrect answers : " + incorrect + "<br> Unanswered : " + unanswered;
+	$(".score").prepend(displayMessage);
+	$('.results').show();
+	$('.form').hide();
 }
 
 $(document).ready(function() {
 	$('.form').hide();
+
+	//When click on start button
 	$("#start").click(displayQuestions);
 
-	$("#submit").click(checkAnswer);
-
+	//If the time is over
+	setTimeout(timeOut, 1000 * 51);
 
 });
