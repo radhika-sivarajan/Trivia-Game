@@ -83,10 +83,10 @@ function timeOut(){
 function displayQuestions(){
 
 	//Start timer.
-	timer = setInterval(displayTime, 1000);
+	setInterval(displayTime, 1000);
 
 	//If the time is over
-	setTimeout(timeOut, 1000 * parseInt(sec));
+	timer = setTimeout(timeOut, 1000 * parseInt(sec));
 
 	var quiz = "";
 
@@ -135,15 +135,24 @@ function checkResult(){
 function displayResult(correct, incorrect, unanswered){
 	var totalQuiz = quizList.length;
 	var displayMessage = "Your score out of " + totalQuiz + "<hr>Correct answers : " + correct + "<br> Incorrect answers : " + incorrect + "<br> Unanswered : " + unanswered;
-	$(".score").prepend(displayMessage);
+	$(".score").html(displayMessage);
 	$('.results').show();
 	$('.map-image').show();	
 	$('.form').hide();
+}
+
+//On submit Clear timer and check result
+function onSubmit(){
+	clearTimeout(timer);
+	checkResult();
 }
 
 $(document).ready(function() {
 
 	//When click on start button
 	$("#start").click(displayQuestions);
+
+	//When click on submit button
+	$("#submit").click(onSubmit);
 
 });
