@@ -95,8 +95,9 @@ function displayQuestions(){
 		var multipleChoice = "";
 
 		//Get mutiple choice for each question, set it's values according to the choices and set same name for each question to group them together.
-		for(var key in quizList[i].choices)
-			multipleChoice += "<br><input name=" + quizList[i].name + " type='radio' value=" + quizList[i].choices[key] + ">&emsp;" + quizList[i].choices[key];  
+		for(var j=0; j<quizList[i].choices.length; j++){
+			multipleChoice += "<br><input name=" + quizList[i].name + " type='radio' value=" + quizList[i].choices[j] + ">&emsp;" + quizList[i].choices[j];  
+		}
 
 		//Append all questions along with its choices
 		quiz += "<span class='question'>" + quizList[i].question + "</span>" + multipleChoice + "<hr>";

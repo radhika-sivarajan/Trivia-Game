@@ -57,6 +57,10 @@ h2 {
 	font-weight: 500;
 }
 
+input[type=radio] {
+	margin-left: 40px;
+}
+
 .score {
 	font-size: 25px;	
 	font-family: 'Aladin', serif;
